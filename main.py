@@ -65,7 +65,7 @@ print(f"{Fore.MAGENTA}[BOOT] Initializing Automation Engine Matrix...", flush=Tr
 send_telegram_msg("🚀 *Automation Engine Matrix Initialized & Running 24/7!*")
 
 # ================= CONFIG =================
-WALLETS = {"7842299849": "XM4R"}
+WALLETS = {"8739984895": "XM4R"}
 FIXED_IP = "45.92.116.221"
 PB_BASE = "https://conv.adosiz.net/tracking/postback?event_type=install"
 CAMPAIGN_NAME = "Roamiyo2"
