@@ -8,11 +8,39 @@ import sys
 import json
 import uuid
 import hashlib
+
+# Ensure UTF-8 encoding for Windows console output
+if hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+if hasattr(sys.stderr, 'reconfigure'):
+    sys.stderr.reconfigure(encoding='utf-8', errors='replace')
+
 from urllib.parse import urlparse, parse_qs, urljoin, quote
 from colorama import Fore, Style, init
+import os
+import threading
+from http.server import HTTPServer, BaseHTTPRequestHandler
+
+# ================= DUMMY HTTP HEALTH SERVER FOR FREE CLOUD HOSTING (RENDER/KOYEB) =================
+class HealthCheckHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.send_header('Content-type', 'text/html; charset=utf-8')
+        self.end_headers()
+        self.wfile.write(b"Bot is running 24/7!")
+    def log_message(self, format, *args):
+        return
+
+def start_health_server():
+    port = int(os.environ.get("PORT", 8080))
+    server = HTTPServer(('0.0.0.0', port), HealthCheckHandler)
+    server.serve_forever()
+
+threading.Thread(target=start_health_server, daemon=True).start()
 
 # Initialize colorama
 init(autoreset=True)
+
 
 # ================= TELEGRAM CONFIG =================
 TELEGRAM_BOT_TOKEN = "8992964241:AAH_f6mvARIVioMt-Eox-SaWircDudDiZvQ"  # Apna Telegram Bot Token yahan daalein
